@@ -1,0 +1,12 @@
+FROM nginx:alpine as main
+LABEL maintainer="bekaryukovmv@gmail.com"
+
+ENV TZ=UTC+7
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+## Copy our default nginx config
+COPY ./docker/nginx/nginx.conf /etc/nginx/conf.d/nginx.conf
+COPY ./TODO_project /app/TODO_project
+
+CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 443 80

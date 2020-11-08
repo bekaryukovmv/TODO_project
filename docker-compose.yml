@@ -1,0 +1,53 @@
+version: "3.7"
+
+services:
+  postgres_todo:
+    restart: always
+    image: postgres:11
+    container_name: postgres_todo
+    volumes:
+      - pgdata_todo:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_NAME: ${POSTGRES_NAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  django_todo:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./docker/django/dockerfile
+    container_name: django_todo
+    volumes:
+      - ./TODO_project:/app/TODO_project
+    depends_on:
+      - postgres_todo
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_NAME: ${POSTGRES_NAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      SECRET_KEY: ${SECRET_KEY}
+      DEBUG: ${DEBUG}
+    command: >
+      sh -c "gunicorn --bind :8000 --workers 3 --timeout 300 TODO_list.wsgi:application"
+
+  nginx_todo:
+    restart: always
+    container_name: nginx_todo
+    build:
+      context: ./
+      dockerfile: ./docker/nginx/dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./TODO_project:/app/TODO_project
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+    depends_on:
+      - django_todo
+      - postgres_todo
+
+volumes:
+  pgdata_todo: {}
