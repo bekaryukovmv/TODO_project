@@ -57,8 +57,7 @@ docker-compose exec django_todo python manage.py test
 
 Congratulations! Your local fmm api is ready to use.
 
-
-API-endpoints:
+## API-endpoints:
 1) GET http://0.0.0.0/api/v1/lists/  - get TODO lists
 2) POST http://0.0.0.0/api/v1/lists/  - create new TODO List
 3) GET http://0.0.0.0/api/v1/lists/UUID/- get single TODO List
