@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 3-rd part
     "rest_framework",
+    "corsheaders",
     # local
     "api.apps.ApiConfig",
 ]
