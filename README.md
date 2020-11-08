@@ -67,7 +67,7 @@ API-endpoints:
 5) GET http://0.0.0.0/api/v1/lists/UUID/items/ - get List of TODOList Items
 6) POST http://0.0.0.0/api/v1/lists/UUID/items/ - create TODOList Item
 7) GET http://0.0.0.0/api/v1/lists/List_UUID/items/Item_UUID/ - get single Item
-8) PUT\PATCH http://0.0.0.0/api/v1/lists/List_UUID/items/Item_UUID/ - update single Item
-9) DELETE http://0.0.0.0/api/v1/lists/<List_UUID>/items/{Item_UUID}/ - delete single Item
+8) PUT\PATCH http://0.0.0.0/api/v1/lists/{List_UUID}/items/{Item_UUID}/ - update single Item
+9) DELETE http://0.0.0.0/api/v1/lists/{List_UUID}/items/{Item_UUID}/ - delete single Item
 
 10) GET http://0.0.0.0/api/v1/item-status-choices/ - get item status choices.
